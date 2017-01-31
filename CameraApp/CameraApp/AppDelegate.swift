@@ -40,7 +40,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        
+        // react to shortcut item selections
+        
+        // have we launched Deep Link 1?
+        if shortcutItem.type == "com.camera.takePhoto" {
+            print("A shortcut item was pressed. It was ", shortcutItem.localizedTitle)
+        }
+    }
 
 }
 

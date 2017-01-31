@@ -23,24 +23,55 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kXa-yO-ekd">
-                                <rect key="frame" x="0.0" y="20" width="375" height="532"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="519"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="h3K-oa-Yis" appends="YES" id="pdo-Dj-Fh9"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyX-0I-Yfu">
-                                <rect key="frame" x="162" y="597" width="50" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xbv-1a-AOL">
+                                <rect key="frame" x="16" y="579" width="70" height="70"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="sV4-LV-PyW"/>
-                                    <constraint firstAttribute="width" constant="50" id="xnW-6r-oVL"/>
+                                    <constraint firstAttribute="height" constant="70" id="IDd-v0-jRz"/>
+                                    <constraint firstAttribute="width" constant="70" id="Ko3-Ro-2IU"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="pmF-iS-Ix0" appends="YES" id="Fdq-7r-K0b"/>
+                                </connections>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uLm-P8-Tfp">
+                                <rect key="frame" x="140" y="567" width="95" height="95"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="95" id="k6o-6s-m7x"/>
+                                    <constraint firstAttribute="width" constant="95" id="lb7-Oc-NwW"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                        <integer key="value" value="25"/>
+                                        <integer key="value" value="47"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                        <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyX-0I-Yfu">
+                                <rect key="frame" x="155" y="582" width="65" height="65"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="sV4-LV-PyW"/>
+                                    <constraint firstAttribute="width" constant="65" id="xnW-6r-oVL"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
+                                        <integer key="value" value="32"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                         <integer key="value" value="3"/>
@@ -53,31 +84,22 @@
                                     <outletCollection property="gestureRecognizers" destination="jQt-id-vh5" appends="YES" id="c7E-as-wlB"/>
                                 </connections>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xbv-1a-AOL">
-                                <rect key="frame" x="16" y="597" width="50" height="50"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="IDd-v0-jRz"/>
-                                    <constraint firstAttribute="width" constant="50" id="Ko3-Ro-2IU"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="pmF-iS-Ix0" appends="YES" id="Fdq-7r-K0b"/>
-                                </connections>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kXa-yO-ekd" secondAttribute="bottom" constant="115" id="6cD-XN-IB8"/>
+                            <constraint firstItem="jyX-0I-Yfu" firstAttribute="centerY" secondItem="uLm-P8-Tfp" secondAttribute="centerY" id="157-dF-RFr"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kXa-yO-ekd" secondAttribute="bottom" constant="120" id="6cD-XN-IB8"/>
                             <constraint firstItem="kXa-yO-ekd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="Dfc-73-qB7"/>
                             <constraint firstItem="jyX-0I-Yfu" firstAttribute="centerY" secondItem="xbv-1a-AOL" secondAttribute="centerY" id="Eyz-XL-sQf"/>
                             <constraint firstItem="jyX-0I-Yfu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="H9D-t0-HRC"/>
+                            <constraint firstItem="jyX-0I-Yfu" firstAttribute="centerX" secondItem="uLm-P8-Tfp" secondAttribute="centerX" id="J0A-DY-Crt"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jyX-0I-Yfu" secondAttribute="bottom" constant="20" id="Tte-Po-GQJ"/>
                             <constraint firstAttribute="leadingMargin" secondItem="xbv-1a-AOL" secondAttribute="leading" id="VjG-uN-as4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kXa-yO-ekd" secondAttribute="trailing" constant="-16" id="jtw-QD-N7E"/>
-                            <constraint firstItem="kXa-yO-ekd" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="yQj-zr-1Dm"/>
+                            <constraint firstItem="kXa-yO-ekd" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="yQj-zr-1Dm"/>
                         </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="cameraView" destination="kXa-yO-ekd" id="vmr-bR-Mu7"/>
                         <outlet property="imageView" destination="xbv-1a-AOL" id="Ef3-kc-1Bm"/>

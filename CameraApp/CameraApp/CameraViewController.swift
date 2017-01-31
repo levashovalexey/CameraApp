@@ -9,13 +9,9 @@
 import UIKit
 import AVFoundation
 
-class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate, UIImagePickerControllerDelegate,UIPopoverControllerDelegate,UINavigationControllerDelegate  {
+class CameraViewController: UIViewController, CameraAPIDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UINavigationControllerDelegate  {
 
-    
-    //variables ant properties
-    var photoOutput: AVCapturePhotoOutput!
-    var session: AVCaptureSession!
-    var captureDevice: AVCaptureDevice?
+    var camera: CameraAPI?
     
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var takePhotoButton: UIView!
@@ -28,44 +24,25 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate, UII
         
         // Start Camera
         self.imageView.isUserInteractionEnabled = true
-        self.configureCamera()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.camera = CameraAPI(view: self.cameraView);
+        self.camera?.delegate = self
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    //IBActions
     @IBAction func pinch(_ sender: Any) {
-        
-        let vZoomFactor = ((sender as! UIPinchGestureRecognizer).scale)
-        setZoom(zoomFactor: vZoomFactor, sender: sender as! UIPinchGestureRecognizer)
-    }
-    
-    func setZoom(zoomFactor:CGFloat, sender : UIPinchGestureRecognizer) {
-        var device: AVCaptureDevice = self.captureDevice!
-        var error:NSError!
-        do{
-            try device.lockForConfiguration()
-            defer {device.unlockForConfiguration()}
-            if (zoomFactor <= device.activeFormat.videoMaxZoomFactor) {
-                
-                let desiredZoomFactor:CGFloat = zoomFactor + atan2(sender.velocity, 5.0);
-                device.videoZoomFactor = max(1.0, min(desiredZoomFactor, device.activeFormat.videoMaxZoomFactor));
-            }
-            else {
-                NSLog("Unable to set videoZoom: (max %f, asked %f)", device.activeFormat.videoMaxZoomFactor, zoomFactor);
-            }
-        }
-        catch error as NSError{
-            NSLog("Unable to set videoZoom: %@", error.localizedDescription);
-        }
-        catch _{
-        }
+        self.camera?.setZoom(zoomFactor: (sender as! UIPinchGestureRecognizer).scale, sender: sender as! UIPinchGestureRecognizer)
     }
     
     @IBAction func takePhotoButton(_ sender: Any) {
-        capturePhoto()
+        self.camera?.capturePhoto()
     }
     
     @IBAction func openPhoto(_ sender: Any) {
@@ -77,31 +54,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate, UII
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
-
     
-    func capturePhoto() {
-        
-        let settings = AVCapturePhotoSettings()
-        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
-        let previewFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
-                             kCVPixelBufferWidthKey as String: 160,
-                             kCVPixelBufferHeightKey as String: 160,
-                             ]
-        settings.previewPhotoFormat = previewFormat
-        self.photoOutput.capturePhoto(with: settings, delegate: self)
-    }
-    
-    func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
-        
-        if let error = error {
-            print(error.localizedDescription)
-        }
-        
-        if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
-            self.imageView.image = UIImage(data: dataImage)
-            UIImageWriteToSavedPhotosAlbum(UIImage(data: dataImage)!, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
-        }
-        
+    //Delegates
+    func capturedPhoto(dataImage: NSData) {
+                    self.imageView.image = UIImage(data: dataImage as Data)
+                    UIImageWriteToSavedPhotosAlbum(UIImage(data: dataImage as Data)!, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
     func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
@@ -112,53 +69,5 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate, UII
             present(ac, animated: true)
         }
     }
-    
-    private func configureCamera() -> Bool {
-        // init camera device
-        
-        let captureSession: AVCaptureDeviceDiscoverySession? = AVCaptureDeviceDiscoverySession.init(deviceTypes: [AVCaptureDeviceType.builtInDuoCamera, AVCaptureDeviceType.builtInTelephotoCamera,AVCaptureDeviceType.builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: AVCaptureDevicePosition.back)
-        
-        // find back camera
-        for device in (captureSession?.devices)! {
-            if (device as AnyObject).position == AVCaptureDevicePosition.back {
-                self.captureDevice = device
-            }
-        }
-        
-        if self.captureDevice != nil {
-            // Debug
-            print(captureDevice!.localizedName)
-            print(captureDevice!.modelID)
-        } else {
-            print("Missing Camera")
-            return false
-        }
-        
-        // init device input
-        do {
-            let deviceInput: AVCaptureInput = try AVCaptureDeviceInput(device: captureDevice) as AVCaptureInput
-            
-            self.photoOutput = AVCapturePhotoOutput()
-            
-            // init session
-            self.session = AVCaptureSession()
-            self.session.sessionPreset = AVCaptureSessionPresetPhoto
-            self.session.addInput(deviceInput as AVCaptureInput)
-            self.session.addOutput(self.photoOutput)
-            
-            // layer for preview
-            let previewLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.session) as AVCaptureVideoPreviewLayer
-            previewLayer.frame = self.cameraView.bounds
-            previewLayer.videoGravity = AVLayerVideoGravityResizeAspect
-            self.cameraView.layer.addSublayer(previewLayer)
-            
-            self.session.startRunning()
-        }
-        catch {
-            // handle error here
-        }
-        return true
-    }
-
 }
 

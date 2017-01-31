@@ -15,6 +15,7 @@
 		7C27180B1E24DB3A0097F1D0 /* CameraAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C27180A1E24DB3A0097F1D0 /* CameraAppTests.swift */; };
 		7C2718161E24DB3A0097F1D0 /* CameraAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2718151E24DB3A0097F1D0 /* CameraAppUITests.swift */; };
 		7C2718251E24DD620097F1D0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2718241E24DD620097F1D0 /* AVFoundation.framework */; };
+		7C3655711E30B019007D7266 /* CameraAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3655701E30B019007D7266 /* CameraAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		7C2718151E24DB3A0097F1D0 /* CameraAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraAppUITests.swift; sourceTree = "<group>"; };
 		7C2718171E24DB3A0097F1D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C2718241E24DD620097F1D0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		7C3655701E30B019007D7266 /* CameraAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				7C2717F51E24DB3A0097F1D0 /* AppDelegate.swift */,
 				7C2717F71E24DB3A0097F1D0 /* CameraViewController.swift */,
+				7C3655701E30B019007D7266 /* CameraAPI.swift */,
 				7C2717F91E24DB3A0097F1D0 /* Main.storyboard */,
 				7C2717FC1E24DB3A0097F1D0 /* Assets.xcassets */,
 				7C2717FE1E24DB3A0097F1D0 /* LaunchScreen.storyboard */,
@@ -274,6 +277,7 @@
 			files = (
 				7C2717F81E24DB3A0097F1D0 /* CameraViewController.swift in Sources */,
 				7C2717F61E24DB3A0097F1D0 /* AppDelegate.swift in Sources */,
+				7C3655711E30B019007D7266 /* CameraAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +524,7 @@
 				7C27181C1E24DB3A0097F1D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7C27181D1E24DB3A0097F1D0 /* Build configuration list for PBXNativeTarget "CameraAppTests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +533,7 @@
 				7C27181F1E24DB3A0097F1D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7C2718201E24DB3A0097F1D0 /* Build configuration list for PBXNativeTarget "CameraAppUITests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +542,7 @@
 				7C2718221E24DB3A0097F1D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
